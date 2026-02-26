@@ -64,7 +64,7 @@ async def send_request(encrypted_uid, token, url):
             'Expect': "100-continue",
             'X-Unity-Version': "2018.4.11f1",  # Update if Unity version changed
             'X-GA': "v1 1",
-            'ReleaseVersion': "OB52"  # Updated for OB49
+            'ReleaseVersion': "OB52"  # Updated for OB50
         }
         async with aiohttp.ClientSession() as session:
             async with session.post(url, data=edata, headers=headers) as response:
@@ -92,7 +92,7 @@ async def send_multiple_requests(uid, server_name, url):
         if tokens is None:
             app.logger.error("Failed to load tokens.")
             return None
-        for i in range(100):
+        for i in range(250):
             token = tokens[i % len(tokens)]["token"]
             tasks.append(send_request(encrypted_uid, token, url))
         results = await asyncio.gather(*tasks, return_exceptions=True)
@@ -136,7 +136,7 @@ def make_request(encrypt, server_name, token):
             'Expect': "100-continue",
             'X-Unity-Version': "2018.4.11f1",
             'X-GA': "v1 1",
-            'ReleaseVersion': "OB52"  # Updated for OB49
+            'ReleaseVersion': "OB52"  # Updated for OB50
         }
         response = requests.post(url, data=edata, headers=headers, verify=False)
         hex_data = response.content.hex()
@@ -229,7 +229,7 @@ def handle_requests():
         return jsonify(result)
     except Exception as e:
         app.logger.error(f"Error processing request: {e}")
-        return jsonify({"error": str(e)}), 9987
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=False)
