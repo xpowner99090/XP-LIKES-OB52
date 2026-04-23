@@ -125,7 +125,7 @@ def make_request(encrypt, server_name, token):
         elif server_name in {"BR", "US", "SAC", "NA"}:
             url = "https://client.us.freefiremobile.com/GetPlayerPersonalShow"
         else:
-            url = "https://clientbp.ggblueshark.com/GetPlayerPersonalShow"
+            url = "https://loginbp.ggpolarbear.com/GetPlayerPersonalShow"
         edata = bytes.fromhex(encrypt)
         headers = {
             'User-Agent': "Dalvik/2.1.0 (Linux; U; Android 9; ASUS_Z01QD Build/PI)",
@@ -198,7 +198,7 @@ def handle_requests():
             elif server_name in {"BR", "US", "SAC", "NA"}:
                 url = "https://client.us.freefiremobile.com/LikeProfile"
             else:
-                url = "https://clientbp.ggblueshark.com/LikeProfile"
+                url = "https://loginbp.ggpolarbear.com/LikeProfile"
 
             asyncio.run(send_multiple_requests(uid, server_name, url))
 
